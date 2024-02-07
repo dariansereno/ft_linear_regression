@@ -40,16 +40,16 @@ class LinearRegression:
 
     def gradient(self):
         errors = self.predict(self.features) - self.target
-        gradient_1 = np.mean(errors * self.features)
         gradient_0 = np.mean(errors)
+        gradient_1 = np.mean(errors * self.features)
         return np.array([gradient_0, gradient_1])
 
     def precision(self):
-        sum_total_squared = np.sqrt(np.sum(self.features - np.mean(self.features)))
-        sum_residual_squared = np.sqrt(np.sum(self.theta[0] + (self.theta[1] * self.original_features)))
+        sum_total_squared = np.sum(self.original_features - np.mean(self.original_features)** 2)
+        sum_residual_squared = np.sum(self.features - (self.theta[0] + (self.theta[1] * self.original_features)) ** 2)
         return 1 - (sum_total_squared / sum_residual_squared)
 
-    def gradient_descent(self, tolerance=1e-7, max_iterations=10000):
+    def gradient_descent(self, tolerance=1e-7, max_iterations=10000, show_plot=False):
         prev_mse = 0
         for _ in range(max_iterations):
             gradient = self.gradient()
@@ -85,7 +85,7 @@ while True:
 linear = LinearRegression(0.01)
 try:
   linear.load_data(filepath)
-  linear.gradient_descent()
+  linear.gradient_descent(show_plot=True)
   linear.plot()
 except FileNotFoundError:
   print("Error: file not found")
