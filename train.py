@@ -45,7 +45,7 @@ class LinearRegression:
         return np.array([gradient_0, gradient_1])
 
     def precision(self):
-        sum_regression_squared = np.sum((self.features - (self.theta[0] + (self.theta[1] * self.original_features))) ** 2)
+        sum_regression_squared = np.sum((self.features - self.predict(self.original_features)) ** 2)
         sum_total_squared = np.sum((self.original_features - np.mean(self.original_features))** 2)
         return 1 - (sum_regression_squared / sum_total_squared)
 
