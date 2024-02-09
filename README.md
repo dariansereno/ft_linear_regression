@@ -21,7 +21,3 @@ python3 train.py
 ```bash
 python3 predict.py
 ```
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
