@@ -45,9 +45,9 @@ class LinearRegression:
         return np.array([gradient_0, gradient_1])
 
     def precision(self):
-        sum_total_squared = np.sum(self.original_features - np.mean(self.original_features)** 2)
-        sum_residual_squared = np.sum(self.features - (self.theta[0] + (self.theta[1] * self.original_features)) ** 2)
-        return 1 - (sum_total_squared / sum_residual_squared)
+        sum_regression_squared = np.sum((self.features - (self.theta[0] + (self.theta[1] * self.original_features))) ** 2)
+        sum_total_squared = np.sum((self.original_features - np.mean(self.original_features))** 2)
+        return 1 - (sum_regression_squared / sum_total_squared)
 
     def gradient_descent(self, tolerance=1e-7, max_iterations=10000, show_plot=False):
         prev_mse = 0
@@ -67,7 +67,7 @@ class LinearRegression:
     def plot(self):
         plt.scatter(self.original_features, self.original_target)
         plt.text(0.5, 0.9, f'Theta 0 = {self.theta[0]:.2f}, Theta 1 = {self.theta[1]:.2f}', ha='center', va='center', transform=plt.gca().transAxes)
-        plt.text(0.5, 0.85, f'Précision = {self.precision()}', ha='center', va='center', transform=plt.gca().transAxes)
+        plt.text(0.5, 0.85, f'Precision = {self.precision():.2f}', ha='center', va='center', transform=plt.gca().transAxes)
         x_values = np.array([min(self.original_features), max(self.original_features)])
         y_values = self.predict(x_values)
         plt.plot(x_values, y_values, color='red')
